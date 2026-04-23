@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Upload, Sparkles, X, ImageIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -6,13 +6,21 @@ import { Textarea } from "@/components/ui/textarea";
 interface Props {
   onSubmit: (input: string, imageBase64?: string) => void;
   loading: boolean;
+  seedText?: string;
 }
 
-export function PrescriptionInput({ onSubmit, loading }: Props) {
+export function PrescriptionInput({ onSubmit, loading, seedText }: Props) {
   const [text, setText] = useState("");
   const [imageBase64, setImageBase64] = useState<string | null>(null);
   const [imageName, setImageName] = useState<string | null>(null);
   const fileRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (!seedText) return;
+    // Strip the cache-busting suffix " · timestamp"
+    const value = seedText.split(" · ")[0];
+    setText(value);
+  }, [seedText]);
 
   const handleFile = (file: File) => {
     if (file.size > 5 * 1024 * 1024) {

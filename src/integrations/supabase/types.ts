@@ -14,7 +14,98 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          created_at: string
+          display_name: string | null
+          id: string
+          updated_at: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string
+          display_name?: string | null
+          id: string
+          updated_at?: string
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string
+          display_name?: string | null
+          id?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      reminders: {
+        Row: {
+          created_at: string
+          enabled: boolean
+          id: string
+          label: string | null
+          medication_name: string
+          saved_medication_id: string | null
+          time_of_day: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          enabled?: boolean
+          id?: string
+          label?: string | null
+          medication_name: string
+          saved_medication_id?: string | null
+          time_of_day: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          enabled?: boolean
+          id?: string
+          label?: string | null
+          medication_name?: string
+          saved_medication_id?: string | null
+          time_of_day?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "reminders_saved_medication_id_fkey"
+            columns: ["saved_medication_id"]
+            isOneToOne: false
+            referencedRelation: "saved_medications"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      saved_medications: {
+        Row: {
+          created_at: string
+          explanation: Json
+          id: string
+          name: string
+          original_input: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          explanation: Json
+          id?: string
+          name: string
+          original_input?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          explanation?: Json
+          id?: string
+          name?: string
+          original_input?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
