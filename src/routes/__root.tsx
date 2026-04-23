@@ -30,14 +30,18 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
+      { title: "Explain My Prescription" },
+      { name: "description", content: "Understand your medication in seconds. Get simple, personalised explanations of your prescription, side effects, and how to take it safely." },
       { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { property: "og:title", content: "Explain My Prescription" },
+      { property: "og:description", content: "Understand your medication in seconds. Get simple, personalised explanations of your prescription, side effects, and how to take it safely." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "Explain My Prescription" },
+      { name: "twitter:description", content: "Understand your medication in seconds. Get simple, personalised explanations of your prescription, side effects, and how to take it safely." },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/b3c11d69-7561-4c46-96f8-4f8102cce404" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/b3c11d69-7561-4c46-96f8-4f8102cce404" },
     ],
     links: [
       {
