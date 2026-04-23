@@ -128,6 +128,10 @@ export function MedicationCard({ med }: Props) {
         <Section icon={Car} title="Driving" tone="success">{med.lifestyle.driving}</Section>
         <Section icon={UtensilsCrossed} title="Food" tone="success">{med.lifestyle.food}</Section>
       </div>
+
+      <p className="mt-5 text-xs text-muted-foreground/80 text-center italic">
+        For general information only — not medical advice.
+      </p>
     </article>
   );
 }

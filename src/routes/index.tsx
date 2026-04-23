@@ -87,6 +87,9 @@ function Index() {
             <p className="mt-5 text-base sm:text-lg text-muted-foreground max-w-xl leading-relaxed">
               Upload or type your prescription and get a clear, simple explanation — like a friendly pharmacist sitting next to you.
             </p>
+            <p className="mt-4 text-sm text-muted-foreground/90 max-w-xl">
+              Designed to help patients understand prescriptions in clear, simple language.
+            </p>
           </div>
         </section>
       </div>
@@ -106,6 +109,12 @@ function Index() {
         <div id="results" className="space-y-6 scroll-mt-8">
           {loading && <LoadingState />}
           {!loading && !result && <ExamplePreview />}
+          {result && result.medications.length > 0 && (
+            <div className="flex items-center gap-2 text-sm text-primary/90 font-medium px-1">
+              <Sparkles className="w-4 h-4" />
+              Here is a simple explanation of your medication:
+            </div>
+          )}
           {result?.medications.map((med, i) => <MedicationCard key={i} med={med} />)}
         </div>
 
@@ -129,7 +138,7 @@ function Index() {
         <div className="max-w-3xl mx-auto px-5 sm:px-8 py-6 text-center">
           <p className="text-xs text-muted-foreground leading-relaxed">
             <ShieldCheck className="w-3.5 h-3.5 inline -mt-0.5 mr-1 text-success" />
-            This is not medical advice. Always consult your doctor or pharmacist before making changes to your medication.
+            This tool provides general information only and is not medical advice. Always consult your doctor or pharmacist before making decisions about your medication.
           </p>
         </div>
       </footer>
