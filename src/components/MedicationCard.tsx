@@ -1,9 +1,19 @@
-import { Pill, HelpCircle, Clock, AlertCircle, AlertTriangle, RotateCcw, Heart, Wine, Car, UtensilsCrossed, Copy, Check } from "lucide-react";
+import { Pill, HelpCircle, Clock, AlertCircle, AlertTriangle, RotateCcw, Wine, Car, UtensilsCrossed, Copy, Check, Bookmark, BookmarkCheck, Share2 } from "lucide-react";
 import { useState } from "react";
 import type { Medication } from "@/lib/types";
 import { Button } from "@/components/ui/button";
+import { ReminderDialog } from "./ReminderDialog";
+import { useAuth } from "@/lib/auth";
+import { supabase } from "@/integrations/supabase/client";
+import { useNavigate } from "@tanstack/react-router";
+import { toast } from "sonner";
+import { formatShareText } from "@/lib/share";
 
-interface Props { med: Medication }
+interface Props {
+  med: Medication;
+  initialSavedId?: string | null;
+  hideSave?: boolean;
+}
 
 function Section({ icon: Icon, title, tone = "default", children }: any) {
   const tones: Record<string, string> = {
@@ -33,14 +43,60 @@ function Section({ icon: Icon, title, tone = "default", children }: any) {
   );
 }
 
-export function MedicationCard({ med }: Props) {
+export function MedicationCard({ med, initialSavedId = null, hideSave = false }: Props) {
+  const { user } = useAuth();
+  const navigate = useNavigate();
   const [copied, setCopied] = useState(false);
+  const [shared, setShared] = useState(false);
+  const [savedId, setSavedId] = useState<string | null>(initialSavedId);
+  const [saving, setSaving] = useState(false);
 
   const copyAll = () => {
     const text = `${med.name}\n\n${med.overview}\n\nWhy: ${med.whyPrescribed}\n\nHow to take: ${med.howToTake.timing} — ${med.howToTake.withFood}\n\nSide effects: ${med.sideEffects.join(", ")}\n\nWarnings: ${med.warnings.join("; ")}`;
     navigator.clipboard.writeText(text);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
+  };
+
+  const shareSummary = async () => {
+    const text = formatShareText(med);
+    if (typeof navigator !== "undefined" && (navigator as any).share) {
+      try {
+        await (navigator as any).share({ title: `Explain My Prescription — ${med.name}`, text });
+        return;
+      } catch {
+        // fall through to clipboard
+      }
+    }
+    await navigator.clipboard.writeText(text);
+    setShared(true);
+    toast.success("Summary copied — ready to share");
+    setTimeout(() => setShared(false), 2000);
+  };
+
+  const toggleSave = async () => {
+    if (!user) {
+      navigate({ to: "/auth" });
+      return;
+    }
+    setSaving(true);
+    if (savedId) {
+      const { error } = await supabase.from("saved_medications").delete().eq("id", savedId);
+      setSaving(false);
+      if (error) return toast.error(error.message);
+      setSavedId(null);
+      toast.success("Removed from My Medications");
+    } else {
+      const { data, error } = await supabase
+        .from("saved_medications")
+        .insert({ user_id: user.id, name: med.name, explanation: med as any })
+        .select("id")
+        .single();
+      setSaving(false);
+      if (error) return toast.error(error.message);
+      setSavedId(data.id);
+      toast.success("Saved to My Medications");
+    }
   };
 
   return (
@@ -55,10 +111,31 @@ export function MedicationCard({ med }: Props) {
             <p className="text-sm text-muted-foreground mt-0.5">{med.overview}</p>
           </div>
         </div>
-        <Button variant="ghost" size="sm" onClick={copyAll} className="shrink-0 rounded-xl">
+        <Button variant="ghost" size="sm" onClick={copyAll} className="shrink-0 rounded-xl" aria-label="Copy explanation">
           {copied ? <Check className="w-4 h-4 text-success" /> : <Copy className="w-4 h-4" />}
         </Button>
       </header>
+
+      {/* Action bar */}
+      <div className="flex flex-wrap gap-2 mb-6">
+        {!hideSave && (
+          <Button
+            variant={savedId ? "default" : "outline"}
+            size="sm"
+            onClick={toggleSave}
+            disabled={saving}
+            className="rounded-xl"
+          >
+            {savedId ? <BookmarkCheck className="w-4 h-4" /> : <Bookmark className="w-4 h-4" />}
+            {savedId ? "Saved" : "Save this medication"}
+          </Button>
+        )}
+        <Button variant="outline" size="sm" onClick={shareSummary} className="rounded-xl">
+          {shared ? <Check className="w-4 h-4 text-success" /> : <Share2 className="w-4 h-4" />}
+          Share explanation
+        </Button>
+        <ReminderDialog medicationName={med.name} savedMedicationId={savedId} />
+      </div>
 
       {/* Timeline */}
       <div className="mb-6 p-5 rounded-2xl bg-gradient-to-br from-primary-soft to-secondary/40 border border-primary/10">
