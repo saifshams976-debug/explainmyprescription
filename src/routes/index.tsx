@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Sparkles, ShieldCheck, Crown, GitCompareArrows, BookmarkCheck } from "lucide-react";
+import { Sparkles, ShieldCheck, Crown, GitCompareArrows, BookmarkCheck, Lock, GraduationCap } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { Switch } from "@/components/ui/switch";
@@ -9,6 +9,7 @@ import { MedicationCard } from "@/components/MedicationCard";
 import { ExamplePreview } from "@/components/ExamplePreview";
 import { LoadingState } from "@/components/LoadingState";
 import { SiteHeader } from "@/components/SiteHeader";
+import { SiteFooter } from "@/components/SiteFooter";
 import type { ExplanationResponse } from "@/lib/types";
 import { useAuth } from "@/lib/auth";
 import { syncReminders } from "@/lib/reminders";
