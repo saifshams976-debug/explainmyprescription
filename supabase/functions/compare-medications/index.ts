@@ -44,11 +44,59 @@ Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response(null, { headers: corsHeaders });
 
   try {
-    const { medications } = await req.json();
+    // Cap raw request body
+    const MAX_BODY_BYTES = 64 * 1024; // 64KB is plenty for a list of names
+    const contentLength = Number(req.headers.get("content-length") ?? "0");
+    if (contentLength && contentLength > MAX_BODY_BYTES) {
+      return new Response(JSON.stringify({ error: "Request too large" }), {
+        status: 413, headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+    const rawBody = await req.text();
+    if (rawBody.length > MAX_BODY_BYTES) {
+      return new Response(JSON.stringify({ error: "Request too large" }), {
+        status: 413, headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+    let parsedBody: any;
+    try { parsedBody = JSON.parse(rawBody); } catch {
+      return new Response(JSON.stringify({ error: "Invalid JSON" }), {
+        status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
+    const { medications } = parsedBody ?? {};
+    const MAX_MEDS = 10;
+    const MAX_NAME_CHARS = 200;
     if (!Array.isArray(medications) || medications.length < 2) {
       return new Response(JSON.stringify({ error: "Provide at least 2 medications" }), {
         status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
+    }
+    if (medications.length > MAX_MEDS) {
+      return new Response(JSON.stringify({ error: `Too many medications (max ${MAX_MEDS})` }), {
+        status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+    const safeMeds: string[] = [];
+    for (const m of medications) {
+      if (typeof m !== "string") {
+        return new Response(JSON.stringify({ error: "Each medication must be a string" }), {
+          status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" },
+        });
+      }
+      const cleaned = m.replace(/[\u0000-\u0008\u000B-\u001F\u007F]/g, "").trim();
+      if (!cleaned) {
+        return new Response(JSON.stringify({ error: "Medication names cannot be empty" }), {
+          status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" },
+        });
+      }
+      if (cleaned.length > MAX_NAME_CHARS) {
+        return new Response(JSON.stringify({ error: `Medication name too long (max ${MAX_NAME_CHARS} characters)` }), {
+          status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" },
+        });
+      }
+      safeMeds.push(cleaned);
     }
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
     if (!LOVABLE_API_KEY) throw new Error("Missing LOVABLE_API_KEY");
@@ -75,7 +123,7 @@ Only include interactions that are clinically meaningful. If there are no real i
         model: "google/gemini-2.5-flash",
         messages: [
           { role: "system", content: systemPrompt },
-          { role: "user", content: `Compare these medications a patient is taking together:\n\n${medications.map((m: string, i: number) => `${i + 1}. ${m}`).join("\n")}` },
+          { role: "user", content: `Compare these medications a patient is taking together:\n\n${safeMeds.map((m: string, i: number) => `${i + 1}. ${m}`).join("\n")}` },
         ],
         tools: [compareTool],
         tool_choice: { type: "function", function: { name: "return_comparison" } },
