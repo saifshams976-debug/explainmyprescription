@@ -1,7 +1,7 @@
 project_id = "vltzqtlftacxkiqskkiz"
 
 [functions.explain-prescription]
-verify_jwt = false
+verify_jwt = true
 
 [functions.compare-medications]
-verify_jwt = false
+verify_jwt = true
