@@ -158,7 +158,7 @@ Only include interactions that are clinically meaningful. If there are no real i
     });
   } catch (e) {
     console.error("compare-medications error:", e);
-    return new Response(JSON.stringify({ error: e instanceof Error ? e.message : "Unknown error" }), {
+    return new Response(JSON.stringify({ error: "Something went wrong. Please try again." }), {
       status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
   }

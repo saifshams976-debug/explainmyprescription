@@ -208,7 +208,7 @@ Always end the "missedDose" field with this exact sentence on a new line:
     });
   } catch (e) {
     console.error("explain-prescription error:", e);
-    return new Response(JSON.stringify({ error: e instanceof Error ? e.message : "Unknown error" }), {
+    return new Response(JSON.stringify({ error: "Something went wrong. Please try again." }), {
       status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
   }
