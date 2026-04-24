@@ -31,6 +31,7 @@ const examples = ["Amoxicillin 500mg", "Ibuprofen 400mg", "Lisinopril 10mg"];
 
 function Index() {
   const { user } = useAuth();
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [simplify, setSimplify] = useState(false);
   const [result, setResult] = useState<ExplanationResponse | null>(null);
