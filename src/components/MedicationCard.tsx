@@ -62,7 +62,7 @@ export function MedicationCard({ med, initialSavedId = null, hideSave = false }:
     const text = formatShareText(med);
     if (typeof navigator !== "undefined" && (navigator as any).share) {
       try {
-        await (navigator as any).share({ title: `Explain My Prescription — ${med.name}`, text });
+        await (navigator as any).share({ title: `MedMate — ${med.name}`, text });
         return;
       } catch {
         // fall through to clipboard

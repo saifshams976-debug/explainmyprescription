@@ -102,7 +102,7 @@ export function PrescriptionInput({ onSubmit, loading, seedText }: Props) {
           className="flex-1 h-12 rounded-2xl bg-[image:var(--gradient-primary)] hover:opacity-95 transition-opacity shadow-[var(--shadow-soft)] text-base font-medium"
         >
           <Sparkles className="w-4 h-4" />
-          Explain My Prescription
+          MedMate
         </Button>
       </div>
     </div>

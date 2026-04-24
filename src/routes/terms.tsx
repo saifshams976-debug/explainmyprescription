@@ -4,10 +4,10 @@ import { LegalPage } from "@/components/LegalPage";
 export const Route = createFileRoute("/terms")({
   head: () => ({
     meta: [
-      { title: "Terms & Conditions — Explain My Prescription" },
-      { name: "description", content: "The terms that apply when you use Explain My Prescription, including acceptable use and liability." },
-      { property: "og:title", content: "Terms & Conditions — Explain My Prescription" },
-      { property: "og:description", content: "The terms that apply when you use Explain My Prescription." },
+      { title: "Terms & Conditions — MedMate" },
+      { name: "description", content: "The terms that apply when you use MedMate, including acceptable use and liability." },
+      { property: "og:title", content: "Terms & Conditions — MedMate" },
+      { property: "og:description", content: "The terms that apply when you use MedMate." },
     ],
   }),
   component: TermsPage,
@@ -21,12 +21,12 @@ function TermsPage() {
   return (
     <LegalPage
       title="Terms & Conditions"
-      intro="By using Explain My Prescription, you agree to these terms. We've tried to keep them short and clear."
+      intro="By using MedMate, you agree to these terms. We've tried to keep them short and clear."
       updated="April 2026"
     >
       <H2>Educational purpose only</H2>
       <p>
-        Explain My Prescription is an <strong>educational tool</strong>. It helps you understand information about medication in plain language. It is <strong>not</strong> a medical service, diagnosis, or treatment.
+        MedMate is an <strong>educational tool</strong>. It helps you understand information about medication in plain language. It is <strong>not</strong> a medical service, diagnosis, or treatment.
       </p>
 
       <H2>Not a substitute for medical advice</H2>
@@ -55,7 +55,7 @@ function TermsPage() {
 
       <H2>Intellectual property</H2>
       <p>
-        The site, branding, design, and original content are owned by Explain My Prescription. You may use the service for personal, non-commercial use. Don't copy, resell, or redistribute the service without permission. Content you submit remains yours.
+        The site, branding, design, and original content are owned by MedMate. You may use the service for personal, non-commercial use. Don't copy, resell, or redistribute the service without permission. Content you submit remains yours.
       </p>
 
       <H2>Termination</H2>
@@ -76,8 +76,8 @@ function TermsPage() {
       <H2>Contact</H2>
       <p>
         Questions about these terms? Email{" "}
-        <a href="mailto:hello@explainmyprescription.app" className="text-primary hover:underline">
-          hello@explainmyprescription.app
+        <a href="mailto:hello@medmate.app" className="text-primary hover:underline">
+          hello@medmate.app
         </a>.
       </p>
     </LegalPage>
