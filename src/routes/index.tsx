@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Sparkles, ShieldCheck, Crown, GitCompareArrows, BookmarkCheck } from "lucide-react";
+import { Sparkles, ShieldCheck, Crown, GitCompareArrows, BookmarkCheck, Lock, GraduationCap } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { Switch } from "@/components/ui/switch";
@@ -9,6 +9,7 @@ import { MedicationCard } from "@/components/MedicationCard";
 import { ExamplePreview } from "@/components/ExamplePreview";
 import { LoadingState } from "@/components/LoadingState";
 import { SiteHeader } from "@/components/SiteHeader";
+import { SiteFooter } from "@/components/SiteFooter";
 import type { ExplanationResponse } from "@/lib/types";
 import { useAuth } from "@/lib/auth";
 import { syncReminders } from "@/lib/reminders";
@@ -110,6 +111,22 @@ function Index() {
       <main className="max-w-3xl mx-auto px-5 sm:px-8 pb-20 -mt-4 space-y-6">
         <PrescriptionInput onSubmit={handleSubmit} loading={loading} seedText={exampleSeed} />
 
+        {/* Trust strip — your privacy matters */}
+        <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs text-muted-foreground">
+          <span className="inline-flex items-center gap-1.5">
+            <Lock className="w-3.5 h-3.5 text-success" />
+            No data stored unless you save it
+          </span>
+          <span className="inline-flex items-center gap-1.5">
+            <GraduationCap className="w-3.5 h-3.5 text-primary" />
+            Educational use only
+          </span>
+          <span className="inline-flex items-center gap-1.5">
+            <ShieldCheck className="w-3.5 h-3.5 text-success" />
+            UK GDPR compliant
+          </span>
+        </div>
+
         {/* Example chips */}
         <div className="flex flex-wrap items-center gap-2 text-sm">
           <span className="text-muted-foreground">Try it with:</span>
@@ -165,10 +182,19 @@ function Index() {
           {loading && <LoadingState />}
           {!loading && !result && <ExamplePreview />}
           {result && result.medications.length > 0 && (
-            <div className="flex items-center gap-2 text-sm text-primary/90 font-medium px-1">
-              <Sparkles className="w-4 h-4" />
-              Here is a simple explanation of your medication:
-            </div>
+            <>
+              <div className="flex items-center gap-2 text-sm text-primary/90 font-medium px-1">
+                <Sparkles className="w-4 h-4" />
+                Here is a simple explanation of your medication:
+              </div>
+              <div className="rounded-2xl border border-border/60 bg-card/60 px-4 py-3 text-xs text-muted-foreground inline-flex items-start gap-2">
+                <ShieldCheck className="w-3.5 h-3.5 mt-0.5 text-success shrink-0" />
+                <span>
+                  General information to help you understand your medication. Always confirm details with your doctor or pharmacist.{" "}
+                  <Link to="/medical-disclaimer" className="text-primary hover:underline">Read the full disclaimer</Link>.
+                </span>
+              </div>
+            </>
           )}
           {result?.medications.map((med, i) => (
             <MedicationCard key={i} med={med} initialSavedId={savedIds[med.name.toLowerCase()] ?? null} />
@@ -190,15 +216,7 @@ function Index() {
         )}
       </main>
 
-      {/* Disclaimer footer */}
-      <footer className="border-t border-border/60 bg-card/40 backdrop-blur">
-        <div className="max-w-3xl mx-auto px-5 sm:px-8 py-6 text-center">
-          <p className="text-xs text-muted-foreground leading-relaxed">
-            <ShieldCheck className="w-3.5 h-3.5 inline -mt-0.5 mr-1 text-success" />
-            This tool provides general information only and is not medical advice. Always consult your doctor or pharmacist before making decisions about your medication.
-          </p>
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   );
 }

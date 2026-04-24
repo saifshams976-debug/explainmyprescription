@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { Upload, Sparkles, X, ImageIcon } from "lucide-react";
+import { Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
+import { Checkbox } from "@/components/ui/checkbox";
 
 interface Props {
   onSubmit: (input: string, imageBase64?: string) => void;
@@ -13,11 +15,11 @@ export function PrescriptionInput({ onSubmit, loading, seedText }: Props) {
   const [text, setText] = useState("");
   const [imageBase64, setImageBase64] = useState<string | null>(null);
   const [imageName, setImageName] = useState<string | null>(null);
+  const [consent, setConsent] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (!seedText) return;
-    // Strip the cache-busting suffix " · timestamp"
     const value = seedText.split(" · ")[0];
     setText(value);
   }, [seedText]);
@@ -35,7 +37,7 @@ export function PrescriptionInput({ onSubmit, loading, seedText }: Props) {
     reader.readAsDataURL(file);
   };
 
-  const canSubmit = (text.trim().length > 0 || imageBase64) && !loading;
+  const canSubmit = (text.trim().length > 0 || imageBase64) && consent && !loading;
 
   return (
     <div className="bg-card rounded-3xl p-6 sm:p-8 shadow-[var(--shadow-card)] border border-border/50">
@@ -61,6 +63,21 @@ export function PrescriptionInput({ onSubmit, loading, seedText }: Props) {
           </button>
         </div>
       )}
+
+      <label className="mt-5 flex items-start gap-3 cursor-pointer select-none group">
+        <Checkbox
+          checked={consent}
+          onCheckedChange={(v) => setConsent(v === true)}
+          className="mt-0.5"
+          aria-label="I understand this tool is for educational purposes only"
+        />
+        <span className="text-sm text-muted-foreground leading-relaxed group-hover:text-foreground/90 transition-colors">
+          I understand this tool is for educational purposes only and does not replace professional medical advice. See our{" "}
+          <Link to="/medical-disclaimer" className="text-primary hover:underline">
+            medical disclaimer
+          </Link>.
+        </span>
+      </label>
 
       <div className="mt-4 flex flex-col sm:flex-row gap-3">
         <input
