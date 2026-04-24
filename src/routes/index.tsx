@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Sparkles, ShieldCheck, Crown, GitCompareArrows, BookmarkCheck, Lock, GraduationCap } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
@@ -53,6 +53,11 @@ function Index() {
   }, [user]);
 
   const handleSubmit = async (input: string, imageBase64?: string) => {
+    if (!user) {
+      toast.info("Please sign in to get an explanation.");
+      navigate({ to: "/auth" });
+      return;
+    }
     setLoading(true);
     setResult(null);
     try {
