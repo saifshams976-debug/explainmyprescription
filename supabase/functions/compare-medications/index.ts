@@ -123,7 +123,7 @@ Only include interactions that are clinically meaningful. If there are no real i
         model: "google/gemini-2.5-flash",
         messages: [
           { role: "system", content: systemPrompt },
-          { role: "user", content: `Compare these medications a patient is taking together:\n\n${medications.map((m: string, i: number) => `${i + 1}. ${m}`).join("\n")}` },
+          { role: "user", content: `Compare these medications a patient is taking together:\n\n${safeMeds.map((m: string, i: number) => `${i + 1}. ${m}`).join("\n")}` },
         ],
         tools: [compareTool],
         tool_choice: { type: "function", function: { name: "return_comparison" } },
