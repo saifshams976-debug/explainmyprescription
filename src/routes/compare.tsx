@@ -1,11 +1,12 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from "react";
-import { ArrowLeft, Plus, X, GitCompareArrows, AlertTriangle, ShieldCheck, Sparkles } from "lucide-react";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
+import { ArrowLeft, Plus, X, GitCompareArrows, AlertTriangle, ShieldCheck, Sparkles, Lock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { supabase } from "@/integrations/supabase/client";
 import { SiteHeader } from "@/components/SiteHeader";
 import { LoadingState } from "@/components/LoadingState";
+import { useAuth } from "@/lib/auth";
 import { toast } from "sonner";
 
 interface ComparisonResult {
@@ -26,9 +27,15 @@ export const Route = createFileRoute("/compare")({
 });
 
 function ComparePage() {
+  const { user, loading: authLoading } = useAuth();
+  const navigate = useNavigate();
   const [meds, setMeds] = useState<string[]>(["", ""]);
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<ComparisonResult | null>(null);
+
+  useEffect(() => {
+    if (!authLoading && !user) navigate({ to: "/auth" });
+  }, [authLoading, user, navigate]);
 
   const update = (i: number, v: string) => setMeds((m) => m.map((x, idx) => (idx === i ? v : x)));
   const add = () => setMeds((m) => [...m, ""]);
