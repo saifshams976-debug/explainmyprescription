@@ -18,9 +18,9 @@ import heroImg from "@/assets/hero-pills.jpg";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Explain My Prescription — Understand your medication in seconds" },
+      { title: "MedMate — Understand your medication in seconds" },
       { name: "description", content: "Upload or type your prescription and get a clear, friendly explanation. Like a pharmacist in your pocket." },
-      { property: "og:title", content: "Explain My Prescription" },
+      { property: "og:title", content: "MedMate" },
       { property: "og:description", content: "Understand your medication in seconds — friendly, simple, trustworthy." },
     ],
   }),

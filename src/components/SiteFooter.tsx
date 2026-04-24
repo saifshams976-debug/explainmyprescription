@@ -7,7 +7,7 @@ export function SiteFooter() {
       <div className="max-w-5xl mx-auto px-5 sm:px-8 py-10">
         <div className="grid gap-8 sm:grid-cols-2 sm:items-start">
           <div>
-            <p className="font-display text-lg text-foreground">Explain My Prescription</p>
+            <p className="font-display text-lg text-foreground">MedMate</p>
             <p className="mt-2 text-sm text-muted-foreground max-w-sm leading-relaxed">
               Helping patients understand medication in clear, simple language. Educational use only — never a substitute for your doctor or pharmacist.
             </p>
@@ -35,7 +35,7 @@ export function SiteFooter() {
             General information only — not medical advice. Always consult your doctor or pharmacist.
           </p>
           <p className="text-xs text-muted-foreground/80">
-            © {new Date().getFullYear()} Explain My Prescription
+            © {new Date().getFullYear()} MedMate
           </p>
         </div>
       </div>

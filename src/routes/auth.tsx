@@ -12,7 +12,7 @@ import { toast } from "sonner";
 export const Route = createFileRoute("/auth")({
   head: () => ({
     meta: [
-      { title: "Sign in — Explain My Prescription" },
+      { title: "Sign in — MedMate" },
       { name: "description", content: "Sign in to save medications and set reminders." },
     ],
   }),
