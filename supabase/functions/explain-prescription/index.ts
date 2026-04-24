@@ -149,12 +149,12 @@ Tone:
 Always end the "missedDose" field with this exact sentence on a new line:
 "This is general information — always follow your doctor or pharmacist's advice."`;
 
-    const systemPrompt = simplify
+    const systemPrompt = safeSimplify
       ? `${basePrompt}\n\nEXTRA RULE: Explain everything as if speaking to a 12-year-old. Use very simple words, short sentences, and compare things to everyday life when helpful.`
       : basePrompt;
 
     const userContent: any[] = [];
-    if (input) userContent.push({ type: "text", text: `Explain this prescription:\n\n${input}` });
+    if (safeInput) userContent.push({ type: "text", text: `Explain this prescription:\n\n${safeInput}` });
     if (imageBase64) {
       userContent.push({ type: "text", text: "Read the prescription in this image and explain each medication." });
       userContent.push({ type: "image_url", image_url: { url: imageBase64 } });
