@@ -62,7 +62,65 @@ Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response(null, { headers: corsHeaders });
 
   try {
-    const { input, simplify, imageBase64 } = await req.json();
+    // Cap raw request body to prevent oversized payloads (~8MB to allow base64 images)
+    const MAX_BODY_BYTES = 8 * 1024 * 1024;
+    const contentLength = Number(req.headers.get("content-length") ?? "0");
+    if (contentLength && contentLength > MAX_BODY_BYTES) {
+      return new Response(JSON.stringify({ error: "Request too large" }), {
+        status: 413, headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+    const rawBody = await req.text();
+    if (rawBody.length > MAX_BODY_BYTES) {
+      return new Response(JSON.stringify({ error: "Request too large" }), {
+        status: 413, headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+    let parsedBody: any;
+    try { parsedBody = JSON.parse(rawBody); } catch {
+      return new Response(JSON.stringify({ error: "Invalid JSON" }), {
+        status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
+    const { input, simplify, imageBase64 } = parsedBody ?? {};
+
+    // Validate types and cap sizes
+    const MAX_INPUT_CHARS = 4000;
+    const MAX_IMAGE_CHARS = 7 * 1024 * 1024; // ~5MB image after base64
+    if (input !== undefined && typeof input !== "string") {
+      return new Response(JSON.stringify({ error: "input must be a string" }), {
+        status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+    if (typeof input === "string" && input.length > MAX_INPUT_CHARS) {
+      return new Response(JSON.stringify({ error: `Input too long (max ${MAX_INPUT_CHARS} characters)` }), {
+        status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+    if (imageBase64 !== undefined) {
+      if (typeof imageBase64 !== "string") {
+        return new Response(JSON.stringify({ error: "imageBase64 must be a string" }), {
+          status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" },
+        });
+      }
+      if (!/^data:image\/(png|jpe?g|webp|gif);base64,/.test(imageBase64)) {
+        return new Response(JSON.stringify({ error: "imageBase64 must be a data URL (png/jpeg/webp/gif)" }), {
+          status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" },
+        });
+      }
+      if (imageBase64.length > MAX_IMAGE_CHARS) {
+        return new Response(JSON.stringify({ error: "Image too large (max ~5MB)" }), {
+          status: 413, headers: { ...corsHeaders, "Content-Type": "application/json" },
+        });
+      }
+    }
+    const safeSimplify = Boolean(simplify);
+    // Sanitize input: strip control chars that aren't whitespace
+    const safeInput = typeof input === "string"
+      ? input.replace(/[\u0000-\u0008\u000B-\u001F\u007F]/g, "").trim()
+      : undefined;
+
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
     if (!LOVABLE_API_KEY) throw new Error("Missing LOVABLE_API_KEY");
 
