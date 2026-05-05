@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /auth
+Disallow: /my-medications
+
+Sitemap: https://medmatee.lovable.app/sitemap.xml
