@@ -45,9 +45,20 @@ export const Route = createRootRoute({
       { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/b3c11d69-7561-4c46-96f8-4f8102cce404" },
     ],
     links: [
+      { rel: "stylesheet", href: appCss },
+      { rel: "canonical", href: "https://medmatee.lovable.app/" },
+    ],
+    scripts: [
       {
-        rel: "stylesheet",
-        href: appCss,
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebApplication",
+          name: "MedMate",
+          url: "https://medmatee.lovable.app/",
+          description: "Understand your medication in seconds. Get simple, personalised explanations of your prescription, side effects, and how to take it safely.",
+          applicationCategory: "HealthApplication",
+        }),
       },
     ],
   }),
