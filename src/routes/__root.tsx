@@ -31,22 +31,22 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "MedMate" },
+      { title: "Knowdose" },
       { name: "description", content: "Understand your medication in seconds. Get simple, personalised explanations of your prescription, side effects, and how to take it safely." },
       { name: "author", content: "Lovable" },
-      { property: "og:title", content: "MedMate" },
+      { property: "og:title", content: "Knowdose" },
       { property: "og:description", content: "Understand your medication in seconds. Get simple, personalised explanations of your prescription, side effects, and how to take it safely." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
-      { name: "twitter:title", content: "MedMate" },
+      { name: "twitter:title", content: "Knowdose" },
       { name: "twitter:description", content: "Understand your medication in seconds. Get simple, personalised explanations of your prescription, side effects, and how to take it safely." },
       { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/b3c11d69-7561-4c46-96f8-4f8102cce404" },
       { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/b3c11d69-7561-4c46-96f8-4f8102cce404" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
-      { rel: "canonical", href: "https://medmatee.lovable.app/" },
+      { rel: "canonical", href: "https://knowdosee.lovable.app/" },
     ],
     scripts: [
       {
@@ -54,8 +54,8 @@ export const Route = createRootRoute({
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "WebApplication",
-          name: "MedMate",
-          url: "https://medmatee.lovable.app/",
+          name: "Knowdose",
+          url: "https://knowdosee.lovable.app/",
           description: "Understand your medication in seconds. Get simple, personalised explanations of your prescription, side effects, and how to take it safely.",
           applicationCategory: "HealthApplication",
         }),

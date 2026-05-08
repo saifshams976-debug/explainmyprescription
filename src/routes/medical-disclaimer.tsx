@@ -5,9 +5,9 @@ import { ShieldCheck, Stethoscope, AlertCircle } from "lucide-react";
 export const Route = createFileRoute("/medical-disclaimer")({
   head: () => ({
     meta: [
-      { title: "Medical Disclaimer — MedMate" },
+      { title: "Medical Disclaimer — Knowdose" },
       { name: "description", content: "Important: this tool is for education only and does not provide medical diagnosis or treatment." },
-      { property: "og:title", content: "Medical Disclaimer — MedMate" },
+      { property: "og:title", content: "Medical Disclaimer — Knowdose" },
       { property: "og:description", content: "This tool is for education only and does not provide medical diagnosis or treatment." },
     ],
   }),
@@ -28,7 +28,7 @@ function DisclaimerPage() {
       <div className="rounded-2xl border border-border/60 bg-primary-soft/40 p-5 flex gap-3">
         <ShieldCheck className="w-5 h-5 text-primary shrink-0 mt-0.5" />
         <p className="text-sm text-foreground/90">
-          MedMate is an <strong>educational tool</strong>. It does not provide medical diagnosis, treatment, or personalised medical advice.
+          Knowdose is an <strong>educational tool</strong>. It does not provide medical diagnosis, treatment, or personalised medical advice.
         </p>
       </div>
 

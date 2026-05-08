@@ -19,7 +19,7 @@ interface ComparisonResult {
 export const Route = createFileRoute("/compare")({
   head: () => ({
     meta: [
-      { title: "Compare medications — MedMate" },
+      { title: "Compare medications — Knowdose" },
       { name: "description", content: "Check how your medications interact, in plain language." },
     ],
   }),

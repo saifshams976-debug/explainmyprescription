@@ -5,9 +5,9 @@ import { Mail, Lock, MessageCircle } from "lucide-react";
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Contact — MedMate" },
-      { name: "description", content: "Get in touch with the MedMate team for support, privacy queries, or feedback." },
-      { property: "og:title", content: "Contact — MedMate" },
+      { title: "Contact — Knowdose" },
+      { name: "description", content: "Get in touch with the Knowdose team for support, privacy queries, or feedback." },
+      { property: "og:title", content: "Contact — Knowdose" },
       { property: "og:description", content: "Reach our team for support, privacy queries, or feedback." },
     ],
   }),
@@ -42,19 +42,19 @@ function ContactPage() {
           icon={<MessageCircle className="w-4 h-4" />}
           title="General questions & feedback"
           description="Ideas, bugs, or anything else."
-          email="hello@medmate.app"
+          email="hello@knowdose.app"
         />
         <ContactCard
           icon={<Lock className="w-4 h-4" />}
           title="Privacy & data requests"
           description="GDPR requests, deletions, or privacy concerns."
-          email="privacy@medmate.app"
+          email="privacy@knowdose.app"
         />
         <ContactCard
           icon={<Mail className="w-4 h-4" />}
           title="Account help"
           description="Trouble signing in or managing saved medications."
-          email="support@medmate.app"
+          email="support@knowdose.app"
         />
       </div>
 
