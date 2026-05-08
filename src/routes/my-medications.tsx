@@ -29,7 +29,7 @@ interface Reminder {
 export const Route = createFileRoute("/my-medications")({
   head: () => ({
     meta: [
-      { title: "My Medications — MedMate" },
+      { title: "My Medications — Knowdose" },
       { name: "description", content: "Your saved medications and reminders, all in one place." },
     ],
   }),

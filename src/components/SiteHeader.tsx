@@ -20,7 +20,7 @@ export function SiteHeader() {
         <div className="w-9 h-9 rounded-xl bg-[image:var(--gradient-primary)] flex items-center justify-center shadow-[var(--shadow-soft)] group-hover:scale-105 transition-transform">
           <Sparkles className="w-4 h-4 text-primary-foreground" />
         </div>
-        <span className="font-display text-lg tracking-tight">MedMate</span>
+        <span className="font-display text-lg tracking-tight">Knowdose</span>
       </Link>
 
       <div className="flex items-center gap-2">

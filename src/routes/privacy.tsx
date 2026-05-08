@@ -4,9 +4,9 @@ import { LegalPage } from "@/components/LegalPage";
 export const Route = createFileRoute("/privacy")({
   head: () => ({
     meta: [
-      { title: "Privacy Policy — MedMate" },
-      { name: "description", content: "How MedMate handles your data, AI processing, cookies, and your rights under GDPR." },
-      { property: "og:title", content: "Privacy Policy — MedMate" },
+      { title: "Privacy Policy — Knowdose" },
+      { name: "description", content: "How Knowdose handles your data, AI processing, cookies, and your rights under GDPR." },
+      { property: "og:title", content: "Privacy Policy — Knowdose" },
       { property: "og:description", content: "How we handle your data, AI processing, and your rights under GDPR." },
     ],
   }),
@@ -81,8 +81,8 @@ function PrivacyPage() {
       <H2>Contact</H2>
       <p>
         For privacy questions or to exercise your data rights, email{" "}
-        <a href="mailto:privacy@medmate.app" className="text-primary hover:underline">
-          privacy@medmate.app
+        <a href="mailto:privacy@knowdose.app" className="text-primary hover:underline">
+          privacy@knowdose.app
         </a>.
       </p>
     </LegalPage>
