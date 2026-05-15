@@ -46,7 +46,7 @@ export const Route = createRootRoute({
     ],
     links: [
       { rel: "stylesheet", href: appCss },
-      { rel: "canonical", href: "https://knowdosee.lovable.app/" },
+      { rel: "canonical", href: "https://knowdose.lovable.app/" },
     ],
     scripts: [
       {
@@ -55,7 +55,7 @@ export const Route = createRootRoute({
           "@context": "https://schema.org",
           "@type": "WebApplication",
           name: "Knowdose",
-          url: "https://knowdosee.lovable.app/",
+          url: "https://knowdose.lovable.app/",
           description: "Understand your medication in seconds. Get simple, personalised explanations of your prescription, side effects, and how to take it safely.",
           applicationCategory: "HealthApplication",
         }),

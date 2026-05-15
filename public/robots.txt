@@ -3,4 +3,4 @@ Allow: /
 Disallow: /auth
 Disallow: /my-medications
 
-Sitemap: https://knowdosee.lovable.app/sitemap.xml
+Sitemap: https://knowdose.lovable.app/sitemap.xml
