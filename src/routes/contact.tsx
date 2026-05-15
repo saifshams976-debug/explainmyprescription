@@ -9,6 +9,10 @@ export const Route = createFileRoute("/contact")({
       { name: "description", content: "Get in touch with the Knowdose team for support, privacy queries, or feedback." },
       { property: "og:title", content: "Contact — Knowdose" },
       { property: "og:description", content: "Reach our team for support, privacy queries, or feedback." },
+      { property: "og:url", content: "https://knowdose.lovable.app/contact" },
+    ],
+    links: [
+      { rel: "canonical", href: "https://knowdose.lovable.app/contact" },
     ],
   }),
   component: ContactPage,

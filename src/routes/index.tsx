@@ -157,7 +157,7 @@ function Index() {
             <p className="text-sm font-medium">Explain like I'm 12</p>
             <p className="text-xs text-muted-foreground">Even simpler, friendlier language</p>
           </div>
-          <Switch checked={simplify} onCheckedChange={setSimplify} />
+          <Switch checked={simplify} onCheckedChange={setSimplify} aria-label="Explain like I'm 12" />
         </div>
 
         {/* Quick links */}
@@ -189,6 +189,7 @@ function Index() {
         </div>
 
         <div id="results" className="space-y-6 scroll-mt-8">
+          <h2 className="sr-only">Your medication explanation</h2>
           {loading && <LoadingState />}
           {!loading && !result && <ExamplePreview />}
           {result && result.medications.length > 0 && (

@@ -1,0 +1,12 @@
+# Knowdose
+
+> Knowdose helps patients understand their prescriptions in seconds. Type or upload a medication and get a clear, plain-English explanation of what it is, how to take it, and what side effects to watch for.
+
+## Pages
+
+- [Home](/): Type or upload a prescription and get a friendly explanation.
+- [Compare medications](/compare): Check how two or more medications interact, with safety tips.
+- [Contact](/contact): Get in touch for support, privacy queries, or feedback.
+- [Medical disclaimer](/medical-disclaimer): Knowdose is for education only and is not medical advice.
+- [Privacy policy](/privacy): How we handle your data and your GDPR rights.
+- [Terms & conditions](/terms): The terms that apply when using Knowdose.

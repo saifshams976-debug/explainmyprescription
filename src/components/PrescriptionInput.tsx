@@ -45,9 +45,10 @@ export function PrescriptionInput({ onSubmit, loading, seedText }: Props) {
         value={text}
         onChange={(e) => setText(e.target.value)}
         placeholder="e.g. Amoxicillin 500mg, three times a day for 7 days"
+        aria-label="Prescription details"
         rows={4}
         maxLength={1000}
-        className="resize-none border-input/60 bg-background/60 rounded-2xl text-base placeholder:text-muted-foreground/70 focus-visible:ring-primary/40"
+        className="resize-none border-input/60 bg-background/60 rounded-2xl text-base placeholder:text-muted-foreground focus-visible:ring-primary/40"
       />
 
       {imageName && (
