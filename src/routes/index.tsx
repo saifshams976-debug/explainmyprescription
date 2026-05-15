@@ -20,8 +20,12 @@ export const Route = createFileRoute("/")({
     meta: [
       { title: "Knowdose — Understand your medication in seconds" },
       { name: "description", content: "Upload or type your prescription and get a clear, friendly explanation. Like a pharmacist in your pocket." },
-      { property: "og:title", content: "Knowdose" },
-      { property: "og:description", content: "Understand your medication in seconds — friendly, simple, trustworthy." },
+      { property: "og:title", content: "Knowdose — Understand your medication in seconds" },
+      { property: "og:description", content: "Upload or type your prescription and get a clear, friendly explanation in plain English." },
+      { property: "og:url", content: "https://knowdose.lovable.app/" },
+    ],
+    links: [
+      { rel: "canonical", href: "https://knowdose.lovable.app/" },
     ],
   }),
   component: Index,
@@ -153,7 +157,7 @@ function Index() {
             <p className="text-sm font-medium">Explain like I'm 12</p>
             <p className="text-xs text-muted-foreground">Even simpler, friendlier language</p>
           </div>
-          <Switch checked={simplify} onCheckedChange={setSimplify} />
+          <Switch checked={simplify} onCheckedChange={setSimplify} aria-label="Explain like I'm 12" />
         </div>
 
         {/* Quick links */}
@@ -185,6 +189,7 @@ function Index() {
         </div>
 
         <div id="results" className="space-y-6 scroll-mt-8">
+          <h2 className="sr-only">Your medication explanation</h2>
           {loading && <LoadingState />}
           {!loading && !result && <ExamplePreview />}
           {result && result.medications.length > 0 && (

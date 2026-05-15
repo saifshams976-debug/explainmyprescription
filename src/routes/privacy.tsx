@@ -8,6 +8,10 @@ export const Route = createFileRoute("/privacy")({
       { name: "description", content: "How Knowdose handles your data, AI processing, cookies, and your rights under GDPR." },
       { property: "og:title", content: "Privacy Policy — Knowdose" },
       { property: "og:description", content: "How we handle your data, AI processing, and your rights under GDPR." },
+      { property: "og:url", content: "https://knowdose.lovable.app/privacy" },
+    ],
+    links: [
+      { rel: "canonical", href: "https://knowdose.lovable.app/privacy" },
     ],
   }),
   component: PrivacyPage,
