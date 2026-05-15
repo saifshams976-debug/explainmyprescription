@@ -30,7 +30,14 @@ export const Route = createFileRoute("/my-medications")({
   head: () => ({
     meta: [
       { title: "My Medications — Knowdose" },
-      { name: "description", content: "Your saved medications and reminders, all in one place." },
+      { name: "description", content: "View your saved medication explanations, manage reminders, and quickly access prescriptions you've looked up before." },
+      { property: "og:title", content: "My Medications — Knowdose" },
+      { property: "og:description", content: "Your saved medication explanations and reminders, all in one place." },
+      { property: "og:url", content: "https://knowdose.lovable.app/my-medications" },
+      { name: "robots", content: "noindex" },
+    ],
+    links: [
+      { rel: "canonical", href: "https://knowdose.lovable.app/my-medications" },
     ],
   }),
   component: MyMedications,

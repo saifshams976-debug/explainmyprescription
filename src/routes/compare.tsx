@@ -20,7 +20,13 @@ export const Route = createFileRoute("/compare")({
   head: () => ({
     meta: [
       { title: "Compare medications — Knowdose" },
-      { name: "description", content: "Check how your medications interact, in plain language." },
+      { name: "description", content: "Check how two or more of your medications interact, with side effects and safety tips explained in plain language." },
+      { property: "og:title", content: "Compare medications — Knowdose" },
+      { property: "og:description", content: "Check how your medications interact, with side effects and safety tips in plain English." },
+      { property: "og:url", content: "https://knowdose.lovable.app/compare" },
+    ],
+    links: [
+      { rel: "canonical", href: "https://knowdose.lovable.app/compare" },
     ],
   }),
   component: ComparePage,
@@ -94,6 +100,7 @@ function ComparePage() {
                 value={m}
                 onChange={(e) => update(i, e.target.value)}
                 placeholder={`Medication ${i + 1} (e.g. Ibuprofen 200mg)`}
+                aria-label={`Medication ${i + 1}`}
                 className="rounded-xl"
               />
               {meds.length > 2 && (

@@ -46,7 +46,6 @@ export const Route = createRootRoute({
     ],
     links: [
       { rel: "stylesheet", href: appCss },
-      { rel: "canonical", href: "https://knowdose.lovable.app/" },
     ],
     scripts: [
       {

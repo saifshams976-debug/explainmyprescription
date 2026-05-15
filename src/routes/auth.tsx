@@ -13,7 +13,14 @@ export const Route = createFileRoute("/auth")({
   head: () => ({
     meta: [
       { title: "Sign in — Knowdose" },
-      { name: "description", content: "Sign in to save medications and set reminders." },
+      { name: "description", content: "Sign in or create a Knowdose account to save medication explanations, set reminders, and access them on any device." },
+      { property: "og:title", content: "Sign in to Knowdose" },
+      { property: "og:description", content: "Sign in or create an account to save medications and set reminders on Knowdose." },
+      { property: "og:url", content: "https://knowdose.lovable.app/auth" },
+      { name: "robots", content: "noindex" },
+    ],
+    links: [
+      { rel: "canonical", href: "https://knowdose.lovable.app/auth" },
     ],
   }),
   component: AuthPage,
@@ -86,7 +93,7 @@ function AuthPage() {
             <div className="inline-flex w-12 h-12 rounded-2xl bg-[image:var(--gradient-primary)] items-center justify-center mb-4 shadow-[var(--shadow-soft)]">
               <Sparkles className="w-5 h-5 text-primary-foreground" />
             </div>
-            <h1 className="font-display text-3xl tracking-tight">Welcome</h1>
+            <h1 className="font-display text-3xl tracking-tight">Sign in to Knowdose</h1>
             <p className="text-sm text-muted-foreground mt-2">
               Save medications, set reminders, and access them anytime.
             </p>
