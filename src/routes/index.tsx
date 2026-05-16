@@ -129,7 +129,7 @@ function Index() {
           </span>
           <span className="inline-flex items-center gap-1.5">
             <GraduationCap className="w-3.5 h-3.5 text-primary" />
-            Educational use only
+            Informational use only
           </span>
           <span className="inline-flex items-center gap-1.5">
             <ShieldCheck className="w-3.5 h-3.5 text-success" />
