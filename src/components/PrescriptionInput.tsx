@@ -70,10 +70,10 @@ export function PrescriptionInput({ onSubmit, loading, seedText }: Props) {
           checked={consent}
           onCheckedChange={(v) => setConsent(v === true)}
           className="mt-0.5"
-          aria-label="I understand this tool is for educational purposes only"
+          aria-label="I understand this tool is for informational purposes only"
         />
         <span className="text-sm text-muted-foreground leading-relaxed group-hover:text-foreground/90 transition-colors">
-          I understand this tool is for educational purposes only and does not replace professional medical advice. See our{" "}
+          I understand this tool is for informational purposes only and does not replace professional medical advice. See our{" "}
           <Link to="/medical-disclaimer" className="text-primary hover:underline">
             medical disclaimer
           </Link>.
