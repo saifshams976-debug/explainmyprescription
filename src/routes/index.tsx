@@ -1,6 +1,7 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Sparkles, ShieldCheck, Crown, GitCompareArrows, BookmarkCheck, Lock, GraduationCap } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { Switch } from "@/components/ui/switch";
@@ -35,6 +36,7 @@ const examples = ["Amoxicillin 500mg", "Ibuprofen 400mg", "Lisinopril 10mg"];
 
 function Index() {
   const { user } = useAuth();
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [simplify, setSimplify] = useState(false);
@@ -59,7 +61,7 @@ function Index() {
 
   const handleSubmit = async (input: string, imageBase64?: string) => {
     if (!user) {
-      toast.info("Please sign in to get an explanation.");
+      toast.info(t("home.signinToast"));
       navigate({ to: "/auth" });
       return;
     }
@@ -102,16 +104,16 @@ function Index() {
           <div className="max-w-2xl">
             <div className="inline-flex items-center gap-2 text-xs font-medium px-3 py-1.5 rounded-full bg-primary-soft text-primary mb-5">
               <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-              Powered by AI · Reviewed in seconds
+              {t("home.badge")}
             </div>
             <h1 className="font-display text-4xl sm:text-6xl tracking-tight leading-[1.05] text-foreground">
-              See what your <span className="italic text-primary">medication</span> actually does in seconds.
+              {t("home.title1")}<span className="italic text-primary">{t("home.titleEmph")}</span>{t("home.title2")}
             </h1>
             <p className="mt-5 text-base sm:text-lg text-muted-foreground max-w-xl leading-relaxed">
-              Upload or type your prescription and get a clear, simple explanation — like a friendly pharmacist sitting next to you.
+              {t("home.subtitle")}
             </p>
             <p className="mt-4 text-sm text-muted-foreground/90 max-w-xl">
-              Designed to help patients understand prescriptions in clear, simple language.
+              {t("home.tagline")}
             </p>
           </div>
         </section>
@@ -125,21 +127,21 @@ function Index() {
         <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs text-muted-foreground">
           <span className="inline-flex items-center gap-1.5">
             <Lock className="w-3.5 h-3.5 text-success" />
-            No data stored unless you save it
+            {t("home.trustNoData")}
           </span>
           <span className="inline-flex items-center gap-1.5">
             <GraduationCap className="w-3.5 h-3.5 text-primary" />
-            Informational use only
+            {t("home.trustInformational")}
           </span>
           <span className="inline-flex items-center gap-1.5">
             <ShieldCheck className="w-3.5 h-3.5 text-success" />
-            UK GDPR compliant
+            {t("home.trustGdpr")}
           </span>
         </div>
 
         {/* Example chips */}
         <div className="flex flex-wrap items-center gap-2 text-sm">
-          <span className="text-muted-foreground">Try it with:</span>
+          <span className="text-muted-foreground">{t("home.tryWith")}</span>
           {examples.map((e) => (
             <button
               key={e}
@@ -154,10 +156,10 @@ function Index() {
 
         <div className="flex flex-wrap items-center justify-between gap-3 bg-card rounded-2xl px-5 py-3.5 border border-border/50 shadow-[var(--shadow-card)]">
           <div>
-            <p className="text-sm font-medium">Explain like I'm 12</p>
-            <p className="text-xs text-muted-foreground">Even simpler, friendlier language</p>
+            <p className="text-sm font-medium">{t("home.simplifyTitle")}</p>
+            <p className="text-xs text-muted-foreground">{t("home.simplifySub")}</p>
           </div>
-          <Switch checked={simplify} onCheckedChange={setSimplify} aria-label="Explain like I'm 12" />
+          <Switch checked={simplify} onCheckedChange={setSimplify} aria-label={t("home.simplifyTitle")} />
         </div>
 
         {/* Quick links */}
@@ -170,8 +172,8 @@ function Index() {
               <GitCompareArrows className="w-4 h-4" />
             </div>
             <div className="flex-1">
-              <p className="text-sm font-medium">Compare medications</p>
-              <p className="text-xs text-muted-foreground">Check interactions in plain English</p>
+              <p className="text-sm font-medium">{t("home.compareTitle")}</p>
+              <p className="text-xs text-muted-foreground">{t("home.compareSub")}</p>
             </div>
           </Link>
           <Link
@@ -182,8 +184,8 @@ function Index() {
               <BookmarkCheck className="w-4 h-4" />
             </div>
             <div className="flex-1">
-              <p className="text-sm font-medium">My Medications</p>
-              <p className="text-xs text-muted-foreground">{user ? "View your saved meds & reminders" : "Sign in to save medications"}</p>
+              <p className="text-sm font-medium">{t("home.savedTitle")}</p>
+              <p className="text-xs text-muted-foreground">{user ? t("home.savedSubIn") : t("home.savedSubOut")}</p>
             </div>
           </Link>
         </div>
@@ -196,13 +198,13 @@ function Index() {
             <>
               <div className="flex items-center gap-2 text-sm text-primary/90 font-medium px-1">
                 <Sparkles className="w-4 h-4" />
-                Here is a simple explanation of your medication:
+                {t("home.resultsHeading")}
               </div>
               <div className="rounded-2xl border border-border/60 bg-card/60 px-4 py-3 text-xs text-muted-foreground inline-flex items-start gap-2">
                 <ShieldCheck className="w-3.5 h-3.5 mt-0.5 text-success shrink-0" />
                 <span>
-                  General information to help you understand your medication. Always confirm details with your doctor or pharmacist.{" "}
-                  <Link to="/medical-disclaimer" className="text-primary hover:underline">Read the full disclaimer</Link>.
+                  {t("home.resultsDisclaimer")}{" "}
+                  <Link to="/medical-disclaimer" className="text-primary hover:underline">{t("home.readFullDisclaimer")}</Link>.
                 </span>
               </div>
             </>
@@ -219,10 +221,10 @@ function Index() {
               <Crown className="w-5 h-5 text-primary-foreground" />
             </div>
             <div className="flex-1">
-              <p className="font-medium">Get a detailed personalised report</p>
-              <p className="text-sm text-muted-foreground">Tailored to your age, conditions, and other medications.</p>
+              <p className="font-medium">{t("home.premiumTitle")}</p>
+              <p className="text-sm text-muted-foreground">{t("home.premiumSub")}</p>
             </div>
-            <button className="text-sm font-medium text-primary hover:underline shrink-0 hidden sm:block">Coming soon</button>
+            <button className="text-sm font-medium text-primary hover:underline shrink-0 hidden sm:block">{t("home.comingSoon")}</button>
           </div>
         )}
       </main>

@@ -1,5 +1,6 @@
 import { Link, useNavigate } from "@tanstack/react-router";
 import { Sparkles, ShieldCheck, LogOut, BookmarkCheck, GitCompareArrows, User as UserIcon } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { useAuth } from "@/lib/auth";
 import { Button } from "@/components/ui/button";
 import {
@@ -9,10 +10,12 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 
 export function SiteHeader() {
   const { user, signOut } = useAuth();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   return (
     <header className="max-w-6xl mx-auto px-5 sm:px-8 pt-6 flex items-center justify-between gap-3">
@@ -24,10 +27,12 @@ export function SiteHeader() {
       </Link>
 
       <div className="flex items-center gap-2">
-        <div className="hidden sm:flex items-center gap-1.5 text-xs text-muted-foreground bg-card/70 backdrop-blur px-3 py-1.5 rounded-full border border-border/50">
+        <div className="hidden md:flex items-center gap-1.5 text-xs text-muted-foreground bg-card/70 backdrop-blur px-3 py-1.5 rounded-full border border-border/50">
           <ShieldCheck className="w-3.5 h-3.5 text-success" />
-          Private & secure
+          {t("header.private")}
         </div>
+
+        <LanguageSwitcher />
 
         {user ? (
           <DropdownMenu>
@@ -41,10 +46,10 @@ export function SiteHeader() {
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-56">
               <DropdownMenuItem onClick={() => navigate({ to: "/my-medications" })}>
-                <BookmarkCheck className="w-4 h-4 mr-2" /> My Medications
+                <BookmarkCheck className="w-4 h-4 mr-2" /> {t("header.myMeds")}
               </DropdownMenuItem>
               <DropdownMenuItem onClick={() => navigate({ to: "/compare" })}>
-                <GitCompareArrows className="w-4 h-4 mr-2" /> Compare medications
+                <GitCompareArrows className="w-4 h-4 mr-2" /> {t("header.compare")}
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem
@@ -53,13 +58,13 @@ export function SiteHeader() {
                   navigate({ to: "/" });
                 }}
               >
-                <LogOut className="w-4 h-4 mr-2" /> Sign out
+                <LogOut className="w-4 h-4 mr-2" /> {t("header.signout")}
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         ) : (
           <Button asChild size="sm" className="rounded-full bg-[image:var(--gradient-primary)]">
-            <Link to="/auth">Sign in</Link>
+            <Link to="/auth">{t("header.signin")}</Link>
           </Button>
         )}
       </div>

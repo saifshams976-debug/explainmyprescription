@@ -1,7 +1,9 @@
 import { Link } from "@tanstack/react-router";
 import { ShieldCheck } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 export function SiteFooter() {
+  const { t } = useTranslation();
   return (
     <footer className="border-t border-border/60 bg-card/40 backdrop-blur mt-12">
       <div className="max-w-5xl mx-auto px-5 sm:px-8 py-10">
@@ -9,22 +11,22 @@ export function SiteFooter() {
           <div>
             <p className="font-display text-lg text-foreground">Knowdose</p>
             <p className="mt-2 text-sm text-muted-foreground max-w-sm leading-relaxed">
-              Helping patients understand medication in clear, simple language. Educational use only — never a substitute for your doctor or pharmacist.
+              {t("footer.about")}
             </p>
           </div>
 
           <nav className="grid grid-cols-2 gap-x-6 gap-y-2 text-sm sm:justify-self-end">
             <Link to="/privacy" className="text-muted-foreground hover:text-foreground transition-colors">
-              Privacy Policy
+              {t("footer.privacy")}
             </Link>
             <Link to="/terms" className="text-muted-foreground hover:text-foreground transition-colors">
-              Terms &amp; Conditions
+              {t("footer.terms")}
             </Link>
             <Link to="/medical-disclaimer" className="text-muted-foreground hover:text-foreground transition-colors">
-              Medical Disclaimer
+              {t("footer.disclaimer")}
             </Link>
             <Link to="/contact" className="text-muted-foreground hover:text-foreground transition-colors">
-              Contact
+              {t("footer.contact")}
             </Link>
           </nav>
         </div>
@@ -32,7 +34,7 @@ export function SiteFooter() {
         <div className="mt-8 pt-6 border-t border-border/60 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           <p className="text-xs text-muted-foreground inline-flex items-center gap-1.5">
             <ShieldCheck className="w-3.5 h-3.5 text-success" />
-            General information only — not medical advice. Always consult your doctor or pharmacist.
+            {t("footer.note")}
           </p>
           <p className="text-xs text-muted-foreground/80">
             © {new Date().getFullYear()} Knowdose
