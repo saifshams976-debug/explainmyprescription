@@ -1,6 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Sparkles, ShieldCheck, Crown, GitCompareArrows, BookmarkCheck, Lock, GraduationCap } from "lucide-react";
+import { Sparkles, ShieldCheck, Crown, GitCompareArrows, BookmarkCheck, Lock, GraduationCap, Stethoscope } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
@@ -163,7 +163,19 @@ function Index() {
         </div>
 
         {/* Quick links */}
-        <div className="grid sm:grid-cols-2 gap-3">
+        <div className="grid sm:grid-cols-3 gap-3">
+          <Link
+            to={user ? "/consultation" : "/auth"}
+            className="group bg-card rounded-2xl p-4 border border-border/50 hover:border-primary/40 transition-colors flex items-center gap-3"
+          >
+            <div className="w-10 h-10 rounded-xl bg-primary-soft flex items-center justify-center text-primary">
+              <Stethoscope className="w-4 h-4" />
+            </div>
+            <div className="flex-1">
+              <p className="text-sm font-medium">{t("consult.homeTitle")}</p>
+              <p className="text-xs text-muted-foreground">{t("consult.homeSub")}</p>
+            </div>
+          </Link>
           <Link
             to="/compare"
             className="group bg-card rounded-2xl p-4 border border-border/50 hover:border-primary/40 transition-colors flex items-center gap-3"
