@@ -194,7 +194,7 @@ function validateMessages(raw: unknown): ConsultMessage[] {
 async function callGateway(messages: ConsultMessage[], mode: "chat" | "report") {
   const isReport = mode === "report";
   const resp = await generateChatCompletion({
-    model: "google/gemini-2.5-flash",
+    model: "google/gemini-3.8-flash",
     messages: [
       { role: "system", content: isReport ? REPORT_PROMPT : SYSTEM_PROMPT },
       ...messages,
