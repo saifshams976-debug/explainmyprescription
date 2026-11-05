@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "@tanstack/react-router";
-import { Sparkles, ShieldCheck, LogOut, BookmarkCheck, GitCompareArrows, User as UserIcon } from "lucide-react";
+import { Sparkles, ShieldCheck, LogOut, BookmarkCheck, GitCompareArrows, Stethoscope, User as UserIcon } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "@/lib/auth";
 import { Button } from "@/components/ui/button";
@@ -45,6 +45,9 @@ export function SiteHeader() {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-56">
+              <DropdownMenuItem onClick={() => navigate({ to: "/consultation" })}>
+                <Stethoscope className="w-4 h-4 mr-2" /> {t("consult.navLink")}
+              </DropdownMenuItem>
               <DropdownMenuItem onClick={() => navigate({ to: "/my-medications" })}>
                 <BookmarkCheck className="w-4 h-4 mr-2" /> {t("header.myMeds")}
               </DropdownMenuItem>

@@ -14,6 +14,7 @@ import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as MyMedicationsRouteImport } from './routes/my-medications'
 import { Route as MedicalDisclaimerRouteImport } from './routes/medical-disclaimer'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as ConsultationRouteImport } from './routes/consultation'
 import { Route as CompareRouteImport } from './routes/compare'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as IndexRouteImport } from './routes/index'
@@ -43,6 +44,11 @@ const ContactRoute = ContactRouteImport.update({
   path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ConsultationRoute = ConsultationRouteImport.update({
+  id: '/consultation',
+  path: '/consultation',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CompareRoute = CompareRouteImport.update({
   id: '/compare',
   path: '/compare',
@@ -63,6 +69,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/compare': typeof CompareRoute
+  '/consultation': typeof ConsultationRoute
   '/contact': typeof ContactRoute
   '/medical-disclaimer': typeof MedicalDisclaimerRoute
   '/my-medications': typeof MyMedicationsRoute
@@ -73,6 +80,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/compare': typeof CompareRoute
+  '/consultation': typeof ConsultationRoute
   '/contact': typeof ContactRoute
   '/medical-disclaimer': typeof MedicalDisclaimerRoute
   '/my-medications': typeof MyMedicationsRoute
@@ -84,6 +92,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/compare': typeof CompareRoute
+  '/consultation': typeof ConsultationRoute
   '/contact': typeof ContactRoute
   '/medical-disclaimer': typeof MedicalDisclaimerRoute
   '/my-medications': typeof MyMedicationsRoute
@@ -96,6 +105,7 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/compare'
+    | '/consultation'
     | '/contact'
     | '/medical-disclaimer'
     | '/my-medications'
@@ -106,6 +116,7 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/compare'
+    | '/consultation'
     | '/contact'
     | '/medical-disclaimer'
     | '/my-medications'
@@ -116,6 +127,7 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/compare'
+    | '/consultation'
     | '/contact'
     | '/medical-disclaimer'
     | '/my-medications'
@@ -127,6 +139,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthRoute: typeof AuthRoute
   CompareRoute: typeof CompareRoute
+  ConsultationRoute: typeof ConsultationRoute
   ContactRoute: typeof ContactRoute
   MedicalDisclaimerRoute: typeof MedicalDisclaimerRoute
   MyMedicationsRoute: typeof MyMedicationsRoute
@@ -171,6 +184,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/consultation': {
+      id: '/consultation'
+      path: '/consultation'
+      fullPath: '/consultation'
+      preLoaderRoute: typeof ConsultationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/compare': {
       id: '/compare'
       path: '/compare'
@@ -199,6 +219,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthRoute: AuthRoute,
   CompareRoute: CompareRoute,
+  ConsultationRoute: ConsultationRoute,
   ContactRoute: ContactRoute,
   MedicalDisclaimerRoute: MedicalDisclaimerRoute,
   MyMedicationsRoute: MyMedicationsRoute,
