@@ -173,7 +173,7 @@ function sanitise(s: string): string {
   return s.replace(/[ --]/g, "").trim();
 }
 
-function validateMessages(raw: unknown): ConsultMessage[] {
+function validateMessages(raw: unknown, requireUserLast: boolean): ConsultMessage[] {
   if (!Array.isArray(raw) || raw.length === 0) throw new Error("messages must be a non-empty array");
   if (raw.length > MAX_MESSAGES) throw new Error(`Too many messages (max ${MAX_MESSAGES})`);
   const out: ConsultMessage[] = [];
@@ -185,7 +185,8 @@ function validateMessages(raw: unknown): ConsultMessage[] {
     const content = sanitise(m.content);
     if (content) out.push({ role: m.role, content });
   }
-  if (out.length === 0 || out[out.length - 1].role !== "user") {
+  if (out.length === 0) throw new Error("Conversation is empty");
+  if (requireUserLast && out[out.length - 1].role !== "user") {
     throw new Error("Conversation must end with a user message");
   }
   return out;
@@ -213,8 +214,8 @@ async function callGateway(messages: ConsultMessage[], mode: "chat" | "report") 
 function handleError(e: unknown): never {
   if (e instanceof GatewayError) {
     console.error("consultation gateway error:", e.code, e.httpStatus, e.message);
-    if (e.code === "RATE_LIMITED") throw new Error("Too many requests. Please wait a moment and try again.");
-    if (e.code === "PAYMENT_REQUIRED") throw new Error("The consultation service is temporarily unavailable. Please try again later.");
+    if (e.code === "rate_limited") throw new Error("Too many requests. Please wait a moment and try again.");
+    if (e.code === "payment_required") throw new Error("The consultation service is temporarily unavailable. Please try again later.");
     throw new Error("The consultation service is temporarily unavailable. Please try again.");
   }
   throw e;
@@ -225,7 +226,7 @@ export const consultationTurn = createServerFn({ method: "POST" })
   .inputValidator((data: { messages: unknown }) => data)
   .handler(async ({ data }): Promise<ConsultTurn> => {
     try {
-      const messages = validateMessages(data.messages);
+      const messages = validateMessages(data.messages, true);
       const parsed = await callGateway(messages, "chat");
       return {
         reply: String(parsed.reply ?? ""),
@@ -244,7 +245,7 @@ export const consultationReport = createServerFn({ method: "POST" })
   .inputValidator((data: { messages: unknown }) => data)
   .handler(async ({ data }): Promise<ConsultReport> => {
     try {
-      const messages = validateMessages(data.messages);
+      const messages = validateMessages(data.messages, false);
       const parsed = await callGateway(messages, "report");
       return parsed as ConsultReport;
     } catch (e) {

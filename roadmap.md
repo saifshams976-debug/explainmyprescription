@@ -1,9 +1,8 @@
 # Roadmap — KnowDose AI Consultation
 
-- [ ] Edge function `consultation-chat` (chat turns + final report, emergency detection, input caps)
-- [ ] Register function in supabase/config.toml (verify_jwt)
-- [ ] DB table `consultation_reports` (save/delete reports, RLS per user)
-- [ ] `/consultation` route: consent → chat thread → report view → saved reports
-- [ ] Nav links (header dropdown + homepage card)
-- [ ] i18n keys (en; other languages fall back)
-- [ ] Regenerate Supabase types, deploy function, verify in preview
+- [x] Server functions `consultationTurn` / `consultationReport` (auth-gated, input caps, emergency detection)
+- [x] DB table `consultation_reports` (save/delete reports, RLS per user)
+- [x] `/consultation` route: consent → chat thread → report view → saved reports
+- [x] Nav links (header dropdown + homepage card)
+- [x] i18n keys (en; other languages fall back)
+- [x] Verified in preview: chat flow, quick replies, report, save/delete, emergency 999 banner
