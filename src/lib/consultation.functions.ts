@@ -173,7 +173,7 @@ function sanitise(s: string): string {
   return s.replace(/[ --]/g, "").trim();
 }
 
-function validateMessages(raw: unknown): ConsultMessage[] {
+function validateMessages(raw: unknown, requireUserLast: boolean): ConsultMessage[] {
   if (!Array.isArray(raw) || raw.length === 0) throw new Error("messages must be a non-empty array");
   if (raw.length > MAX_MESSAGES) throw new Error(`Too many messages (max ${MAX_MESSAGES})`);
   const out: ConsultMessage[] = [];
@@ -185,7 +185,8 @@ function validateMessages(raw: unknown): ConsultMessage[] {
     const content = sanitise(m.content);
     if (content) out.push({ role: m.role, content });
   }
-  if (out.length === 0 || out[out.length - 1].role !== "user") {
+  if (out.length === 0) throw new Error("Conversation is empty");
+  if (requireUserLast && out[out.length - 1].role !== "user") {
     throw new Error("Conversation must end with a user message");
   }
   return out;
