@@ -213,8 +213,8 @@ async function callGateway(messages: ConsultMessage[], mode: "chat" | "report") 
 function handleError(e: unknown): never {
   if (e instanceof GatewayError) {
     console.error("consultation gateway error:", e.code, e.httpStatus, e.message);
-    if (e.code === "RATE_LIMITED") throw new Error("Too many requests. Please wait a moment and try again.");
-    if (e.code === "PAYMENT_REQUIRED") throw new Error("The consultation service is temporarily unavailable. Please try again later.");
+    if (e.code === "rate_limited") throw new Error("Too many requests. Please wait a moment and try again.");
+    if (e.code === "payment_required") throw new Error("The consultation service is temporarily unavailable. Please try again later.");
     throw new Error("The consultation service is temporarily unavailable. Please try again.");
   }
   throw e;
