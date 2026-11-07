@@ -226,7 +226,7 @@ export const consultationTurn = createServerFn({ method: "POST" })
   .inputValidator((data: { messages: unknown }) => data)
   .handler(async ({ data }): Promise<ConsultTurn> => {
     try {
-      const messages = validateMessages(data.messages);
+      const messages = validateMessages(data.messages, true);
       const parsed = await callGateway(messages, "chat");
       return {
         reply: String(parsed.reply ?? ""),
@@ -245,7 +245,7 @@ export const consultationReport = createServerFn({ method: "POST" })
   .inputValidator((data: { messages: unknown }) => data)
   .handler(async ({ data }): Promise<ConsultReport> => {
     try {
-      const messages = validateMessages(data.messages);
+      const messages = validateMessages(data.messages, false);
       const parsed = await callGateway(messages, "report");
       return parsed as ConsultReport;
     } catch (e) {
