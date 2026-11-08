@@ -102,6 +102,8 @@
   --ring: oklch(0.62 0.14 240);
   --gradient-hero: linear-gradient(135deg, oklch(0.97 0.03 235) 0%, oklch(0.94 0.05 220) 100%);
   --gradient-primary: linear-gradient(135deg, oklch(0.62 0.14 240), oklch(0.7 0.13 220));
+  --gradient-cta: linear-gradient(135deg, oklch(0.66 0.19 45), oklch(0.6 0.21 30));
+  --shadow-cta: 0 8px 30px -10px oklch(0.6 0.21 30 / 0.45);
   --shadow-soft: 0 4px 20px -8px oklch(0.62 0.14 240 / 0.15);
   --shadow-card: 0 1px 3px oklch(0.22 0.04 250 / 0.04), 0 8px 24px -12px oklch(0.62 0.14 240 / 0.12);
   --shadow-glow: 0 8px 40px -12px oklch(0.62 0.14 240 / 0.35);
