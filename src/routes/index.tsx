@@ -116,6 +116,18 @@ function Index() {
               {t("home.tagline")}
             </p>
           </div>
+
+          {/* DoseAI — primary CTA */}
+          <div className="mt-8 flex flex-col items-center text-center">
+            <Link
+              to={user ? "/consultation" : "/auth"}
+              className="group inline-flex items-center gap-3 rounded-full bg-[image:var(--gradient-primary)] px-8 py-4 text-base sm:text-lg font-semibold text-primary-foreground shadow-[var(--shadow-soft)] hover:scale-[1.03] transition-transform"
+            >
+              <Stethoscope className="w-5 h-5" />
+              {t("consult.heroCta")}
+            </Link>
+            <p className="mt-2.5 text-xs sm:text-sm text-muted-foreground">{t("consult.heroCtaSub")}</p>
+          </div>
         </section>
       </div>
 
