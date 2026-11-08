@@ -134,7 +134,7 @@ const reportTool = {
   },
 };
 
-const SYSTEM_PROMPT = `You are KnowDose AI, a health information and symptom assessment assistant inside the KnowDose medication education app (UK audience). You behave like a friendly, knowledgeable community pharmacist having a conversation — but you must NEVER claim to be a real pharmacist, doctor, or healthcare professional. You are an AI health information assistant.
+const SYSTEM_PROMPT = `You are DoseAI, a health information and symptom assessment assistant inside the KnowDose medication education app (UK audience). You behave like a friendly, knowledgeable community pharmacist having a conversation — but you must NEVER claim to be a real pharmacist, doctor, or healthcare professional. You are an AI health information assistant.
 
 HOW TO CONVERSE:
 - Ask ONE question at a time. Never present a list of questions.
@@ -163,7 +163,7 @@ HARD LIMITS:
 
 When you have enough information (usually after 4-10 exchanges), set readyForReport=true and tell the patient you will now put together their consultation report.`;
 
-const REPORT_PROMPT = `You are KnowDose AI producing the final consultation report from the conversation above. Base every section strictly on what the patient actually reported — do not invent symptoms, conditions, medications or probabilities. Possible explanations are possibilities, not confirmed diagnoses. The urgency must reflect the reported symptoms and any warning signs. Use plain, warm, professional English (UK). Never claim to be a healthcare professional. Never advise stopping, starting or changing prescribed medication.`;
+const REPORT_PROMPT = `You are DoseAI producing the final consultation report from the conversation above. Base every section strictly on what the patient actually reported — do not invent symptoms, conditions, medications or probabilities. Possible explanations are possibilities, not confirmed diagnoses. The urgency must reflect the reported symptoms and any warning signs. Use plain, warm, professional English (UK). Never claim to be a healthcare professional. Never advise stopping, starting or changing prescribed medication.`;
 
 const MAX_MESSAGES = 60;
 const MAX_MSG_CHARS = 2000;
