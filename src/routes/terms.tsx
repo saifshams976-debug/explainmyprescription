@@ -9,6 +9,8 @@ export const Route = createFileRoute("/terms")({
       { property: "og:title", content: "Terms & Conditions — Knowdose" },
       { property: "og:description", content: "The terms that apply when you use Knowdose." },
       { property: "og:url", content: "https://knowdose.lovable.app/terms" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
     links: [
       { rel: "canonical", href: "https://knowdose.lovable.app/terms" },

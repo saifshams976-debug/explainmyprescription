@@ -9,6 +9,8 @@ export const Route = createFileRoute("/privacy")({
       { property: "og:title", content: "Privacy Policy — Knowdose" },
       { property: "og:description", content: "How we handle your data, AI processing, and your rights under GDPR." },
       { property: "og:url", content: "https://knowdose.lovable.app/privacy" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
     links: [
       { rel: "canonical", href: "https://knowdose.lovable.app/privacy" },
@@ -37,6 +39,7 @@ function PrivacyPage() {
         <li><strong>Account details</strong> (email and display name) if you choose to sign in.</li>
         <li><strong>Saved medications and reminders</strong> only if you explicitly save them while signed in.</li>
         <li><strong>Basic technical data</strong> (browser type, anonymised usage) to keep the service running smoothly.</li>
+        <li><strong>Guest access</strong> uses an essential cookie that expires after 24 hours. Hashed access passes and network identifiers track usage allowances; they do not contain prescriptions or chat messages. Expired records are cleaned up when guest AI is next used.</li>
       </ul>
 
       <H2>What we don't store</H2>

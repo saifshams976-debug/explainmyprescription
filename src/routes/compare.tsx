@@ -8,6 +8,10 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { LoadingState } from "@/components/LoadingState";
 import { useAuth } from "@/lib/auth";
 import { toast } from "sonner";
+import { useServerFn } from "@tanstack/react-start";
+import { guestComparison } from "@/lib/guest-access.functions";
+import { hasAIConsentAccess } from "@/lib/guest-policy";
+import { GuestOption } from "@/components/GuestOption";
 
 interface ComparisonResult {
   summary: string;
@@ -24,6 +28,8 @@ export const Route = createFileRoute("/compare")({
       { property: "og:title", content: "Compare medications — Knowdose" },
       { property: "og:description", content: "Check how your medications interact, with side effects and safety tips in plain English." },
       { property: "og:url", content: "https://knowdose.lovable.app/compare" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
     links: [
       { rel: "canonical", href: "https://knowdose.lovable.app/compare" },
@@ -33,21 +39,19 @@ export const Route = createFileRoute("/compare")({
 });
 
 function ComparePage() {
-  const { user, loading: authLoading } = useAuth();
+  const { user, isGuest, loading: authLoading } = useAuth();
+  const runGuestComparison = useServerFn(guestComparison);
   const navigate = useNavigate();
   const [meds, setMeds] = useState<string[]>(["", ""]);
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<ComparisonResult | null>(null);
-
-  useEffect(() => {
-    if (!authLoading && !user) navigate({ to: "/auth" });
-  }, [authLoading, user, navigate]);
 
   const update = (i: number, v: string) => setMeds((m) => m.map((x, idx) => (idx === i ? v : x)));
   const add = () => setMeds((m) => [...m, ""]);
   const remove = (i: number) => setMeds((m) => m.filter((_, idx) => idx !== i));
 
   const submit = async () => {
+    if (!hasAIConsentAccess(Boolean(user), isGuest)) return;
     const list = meds.map((m) => m.trim()).filter(Boolean);
     if (list.length < 2) {
       toast.error("Add at least 2 medications");
@@ -56,6 +60,10 @@ function ComparePage() {
     setLoading(true);
     setResult(null);
     try {
+      if (!user) {
+        setResult(await runGuestComparison({ data: { medications: list } }));
+        return;
+      }
       const { data, error } = await supabase.functions.invoke("compare-medications", {
         body: { medications: list },
       });
@@ -93,7 +101,8 @@ function ComparePage() {
           </p>
         </div>
 
-        <div className="bg-card rounded-3xl p-6 sm:p-8 shadow-[var(--shadow-card)] border border-border/50 space-y-3">
+        {!authLoading && !hasAIConsentAccess(Boolean(user), isGuest) && <GuestOption />}
+        {hasAIConsentAccess(Boolean(user), isGuest) && <div className="bg-card rounded-3xl p-6 sm:p-8 shadow-[var(--shadow-card)] border border-border/50 space-y-3">
           {meds.map((m, i) => (
             <div key={i} className="flex gap-2">
               <Input
@@ -124,7 +133,7 @@ function ComparePage() {
               Compare medications
             </Button>
           </div>
-        </div>
+        </div>}
 
         {loading && <LoadingState />}
 

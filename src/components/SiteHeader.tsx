@@ -13,7 +13,7 @@ import {
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 
 export function SiteHeader() {
-  const { user, signOut } = useAuth();
+  const { user, signOut, isGuest } = useAuth();
   const navigate = useNavigate();
   const { t } = useTranslation();
 
@@ -66,9 +66,12 @@ export function SiteHeader() {
             </DropdownMenuContent>
           </DropdownMenu>
         ) : (
-          <Button asChild size="sm" className="rounded-full bg-[image:var(--gradient-primary)]">
-            <Link to="/auth">{t("header.signin")}</Link>
-          </Button>
+          <div className="flex items-center gap-2">
+            {isGuest && <span className="text-xs text-muted-foreground">{t("guest.label")}</span>}
+            <Button asChild size="sm" className="rounded-full bg-[image:var(--gradient-primary)]">
+              <Link to="/auth">{t("header.signin")}</Link>
+            </Button>
+          </div>
         )}
       </div>
     </header>

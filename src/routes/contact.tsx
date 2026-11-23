@@ -10,6 +10,8 @@ export const Route = createFileRoute("/contact")({
       { property: "og:title", content: "Contact — Knowdose" },
       { property: "og:description", content: "Reach our team for support, privacy queries, or feedback." },
       { property: "og:url", content: "https://knowdose.lovable.app/contact" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
     links: [
       { rel: "canonical", href: "https://knowdose.lovable.app/contact" },

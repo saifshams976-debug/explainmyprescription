@@ -15,6 +15,11 @@ import type { ExplanationResponse } from "@/lib/types";
 import { useAuth } from "@/lib/auth";
 import { syncReminders } from "@/lib/reminders";
 import heroImg from "@/assets/hero-pills.jpg";
+import { useServerFn } from "@tanstack/react-start";
+import { guestExplanation } from "@/lib/guest-access.functions";
+import { hasAIConsentAccess } from "@/lib/guest-policy";
+import { GuestOption } from "@/components/GuestOption";
+import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -24,6 +29,8 @@ export const Route = createFileRoute("/")({
       { property: "og:title", content: "Knowdose — Understand your medication in seconds" },
       { property: "og:description", content: "Upload or type your prescription and get a clear, friendly explanation in plain English." },
       { property: "og:url", content: "https://knowdose.lovable.app/" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
     links: [
       { rel: "canonical", href: "https://knowdose.lovable.app/" },
@@ -35,7 +42,8 @@ export const Route = createFileRoute("/")({
 const examples = ["Amoxicillin 500mg", "Ibuprofen 400mg", "Lisinopril 10mg"];
 
 function Index() {
-  const { user } = useAuth();
+  const { user, isGuest } = useAuth();
+  const runGuestExplanation = useServerFn(guestExplanation);
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
@@ -60,7 +68,7 @@ function Index() {
   }, [user]);
 
   const handleSubmit = async (input: string, imageBase64?: string) => {
-    if (!user) {
+    if (!hasAIConsentAccess(Boolean(user), isGuest)) {
       toast.info(t("home.signinToast"));
       navigate({ to: "/auth" });
       return;
@@ -68,6 +76,12 @@ function Index() {
     setLoading(true);
     setResult(null);
     try {
+      if (!user) {
+        const data = await runGuestExplanation({ data: { input, simplify, ...(imageBase64 ? { imageBase64 } : {}) } });
+        setResult(data);
+        setTimeout(() => document.getElementById("results")?.scrollIntoView({ behavior: "smooth", block: "start" }), 100);
+        return;
+      }
       const { data, error } = await supabase.functions.invoke("explain-prescription", {
         body: { input, imageBase64, simplify },
       });
@@ -119,14 +133,15 @@ function Index() {
 
           {/* DoseAI — primary CTA */}
           <div className="mt-8 flex flex-col items-center text-center">
-            <Link
-              to={user ? "/consultation" : "/auth"}
-              className="group inline-flex items-center gap-3 rounded-full bg-[image:var(--gradient-cta)] px-8 py-4 text-base sm:text-lg font-semibold text-white shadow-[var(--shadow-cta)] hover:scale-[1.03] transition-transform"
-            >
-              <Stethoscope className="w-5 h-5" />
-              {t("consult.heroCta")}
-            </Link>
+            <Button asChild className="group h-auto rounded-full bg-[image:var(--gradient-cta)] px-8 py-4 text-base sm:text-lg font-semibold text-primary-foreground shadow-[var(--shadow-cta)] hover:scale-[1.03] transition-transform">
+              <Link to="/consultation">
+                <Stethoscope className="w-5 h-5" />
+                {t("consult.heroCta")}
+              </Link>
+            </Button>
             <p className="mt-2.5 text-xs sm:text-sm text-muted-foreground">{t("consult.heroCtaSub")}</p>
+            {!user && !isGuest && <div className="mt-5 max-w-sm w-full"><GuestOption /></div>}
+            {isGuest && <p className="mt-3 text-xs text-muted-foreground">{t("guest.note")}</p>}
           </div>
         </section>
       </div>
@@ -177,7 +192,7 @@ function Index() {
         {/* Quick links */}
         <div className="grid sm:grid-cols-3 gap-3">
           <Link
-            to={user ? "/consultation" : "/auth"}
+            to="/consultation"
             className="group bg-card rounded-2xl p-4 border border-border/50 hover:border-primary/40 transition-colors flex items-center gap-3"
           >
             <div className="w-10 h-10 rounded-xl bg-primary-soft flex items-center justify-center text-primary">

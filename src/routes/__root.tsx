@@ -42,8 +42,6 @@ export const Route = createRootRoute({
       { name: "twitter:site", content: "@Lovable" },
       { name: "twitter:title", content: "Knowdose" },
       { name: "twitter:description", content: "Understand your medication in seconds. Get simple, personalised explanations of your prescription, side effects, and how to take it safely." },
-      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/b3c11d69-7561-4c46-96f8-4f8102cce404" },
-      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/b3c11d69-7561-4c46-96f8-4f8102cce404" },
     ],
     links: [
       { rel: "preconnect", href: "https://fonts.googleapis.com" },

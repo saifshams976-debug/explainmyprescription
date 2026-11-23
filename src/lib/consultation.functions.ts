@@ -1,6 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { generateChatCompletion, GatewayError } from "@lovable.dev/ai-gateway";
-import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { requireAIAccess } from "@/lib/guest-access.functions";
 
 export type ConsultStage = "assessment" | "details" | "medication" | "review";
 export type ConsultUrgency = "emergency" | "urgent" | "routine" | "self-care";
@@ -222,7 +222,7 @@ function handleError(e: unknown): never {
 }
 
 export const consultationTurn = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
+  .middleware([requireAIAccess])
   .inputValidator((data: { messages: unknown }) => data)
   .handler(async ({ data }): Promise<ConsultTurn> => {
     try {
@@ -241,7 +241,7 @@ export const consultationTurn = createServerFn({ method: "POST" })
   });
 
 export const consultationReport = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
+  .middleware([requireAIAccess])
   .inputValidator((data: { messages: unknown }) => data)
   .handler(async ({ data }): Promise<ConsultReport> => {
     try {

@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { toast } from "sonner";
+import { GuestOption } from "@/components/GuestOption";
 
 export const Route = createFileRoute("/auth")({
   head: () => ({
@@ -17,6 +18,8 @@ export const Route = createFileRoute("/auth")({
       { property: "og:title", content: "Sign in to Knowdose" },
       { property: "og:description", content: "Sign in or create an account to save medications and set reminders on Knowdose." },
       { property: "og:url", content: "https://knowdose.lovable.app/auth" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
       { name: "robots", content: "noindex" },
     ],
     links: [
@@ -100,6 +103,8 @@ function AuthPage() {
           </div>
 
           <div className="bg-card rounded-3xl p-6 sm:p-8 shadow-[var(--shadow-card)] border border-border/50">
+            <GuestOption onContinue={() => navigate({ to: "/" })} />
+            <div className="my-5 border-t border-border" />
             <Button
               type="button"
               variant="outline"

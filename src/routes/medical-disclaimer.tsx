@@ -10,6 +10,8 @@ export const Route = createFileRoute("/medical-disclaimer")({
       { property: "og:title", content: "Medical Disclaimer — Knowdose" },
       { property: "og:description", content: "This tool is for education only and does not provide medical diagnosis or treatment." },
       { property: "og:url", content: "https://knowdose.lovable.app/medical-disclaimer" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
     links: [
       { rel: "canonical", href: "https://knowdose.lovable.app/medical-disclaimer" },
