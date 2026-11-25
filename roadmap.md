@@ -12,3 +12,4 @@
 - [ ] Add temporary guest sessions and protected guest AI access without creating accounts.
 - [ ] Add guest option to sign-in, homepage, DoseAI and comparison; keep account saves private.
 - [ ] Verify guest prescription, chat/report and comparison flows, security checks, and mobile layout.
+- [ ] Deliver a complete, reusable website-creation prompt covering the whole product.

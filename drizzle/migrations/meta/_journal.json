@@ -8,6 +8,13 @@
       "when": 1793839476317,
       "tag": "0000_create_consultation_reports",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1795614649580,
+      "tag": "0001_guest_ai_access",
+      "breakpoints": true
     }
   ]
 }

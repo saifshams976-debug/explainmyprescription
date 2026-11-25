@@ -38,6 +38,39 @@ export type Database = {
         }
         Relationships: []
       }
+      guest_ai_sessions: {
+        Row: {
+          expires_at: string
+          token_hash: string
+        }
+        Insert: {
+          expires_at: string
+          token_hash: string
+        }
+        Update: {
+          expires_at?: string
+          token_hash?: string
+        }
+        Relationships: []
+      }
+      guest_ai_usage: {
+        Row: {
+          day: string
+          requests: number
+          scope: string
+        }
+        Insert: {
+          day?: string
+          requests?: number
+          scope: string
+        }
+        Update: {
+          day?: string
+          requests?: number
+          scope?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null
@@ -135,7 +168,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      consume_guest_ai: {
+        Args: { p_network_hash: string; p_token_hash: string }
+        Returns: boolean
+      }
     }
     Enums: {
       [_ in never]: never

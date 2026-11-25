@@ -5,6 +5,7 @@ import LanguageDetector from "i18next-browser-languagedetector";
 const resources = {
   en: {
     translation: {
+      guest: {"continue": "Continue as guest", "starting": "Starting guest access…", "label": "Guest", "note": "No account needed. Sign in to save medications, reminders and reports. Guest access includes up to 20 AI responses per day on your network.", "signinToSave": "Sign in to save", "unavailable": "Guest access is temporarily unavailable. Please try again later."},
       lang: { label: "Language" },
       header: { private: "Private & secure", signin: "Sign in", myMeds: "My Medications", compare: "Compare medications", signout: "Sign out" },
       home: {
@@ -46,8 +47,8 @@ const resources = {
         subtitle: "Chat with DoseAI about your symptoms",
         heroCta: "Chat with DoseAI",
         heroCtaSub: "Describe your symptoms — get clear next steps in minutes",
-        signinTitle: "Sign in to start a consultation",
-        signinSub: "Consultations are private and linked to your account, so please sign in first.",
+        signinTitle: "Start your DoseAI consultation",
+        signinSub: "Sign in or continue as a guest. Saving reports requires an account.",
         beforeStart: "Before we start",
         consentAI: "You're chatting with an AI health information assistant — not a doctor, pharmacist or nurse.",
         consentNotAdvice: "This provides general health information only. It is not a diagnosis and not medical advice.",
@@ -86,6 +87,7 @@ const resources = {
   },
   es: {
     translation: {
+      guest: {"continue": "Continuar como invitado", "starting": "Iniciando acceso de invitado…", "label": "Invitado", "note": "No necesitas una cuenta. Inicia sesión para guardar medicamentos, recordatorios e informes. El acceso de invitado incluye hasta 20 respuestas de IA al día en tu red.", "signinToSave": "Inicia sesión para guardar", "unavailable": "El acceso de invitado no está disponible temporalmente. Inténtalo más tarde."},
       lang: { label: "Idioma" },
       header: { private: "Privado y seguro", signin: "Iniciar sesión", myMeds: "Mis medicamentos", compare: "Comparar medicamentos", signout: "Cerrar sesión" },
       home: {
@@ -167,6 +169,7 @@ const resources = {
   },
   fr: {
     translation: {
+      guest: {"continue": "Continuer sans compte", "starting": "Ouverture de l’accès invité…", "label": "Invité", "note": "Aucun compte nécessaire. Connectez-vous pour enregistrer médicaments, rappels et rapports. Le mode invité inclut jusqu’à 20 réponses IA par jour sur votre réseau.", "signinToSave": "Se connecter pour enregistrer", "unavailable": "L’accès invité est temporairement indisponible. Réessayez plus tard."},
       lang: { label: "Langue" },
       header: { private: "Privé et sécurisé", signin: "Se connecter", myMeds: "Mes médicaments", compare: "Comparer les médicaments", signout: "Se déconnecter" },
       home: {
@@ -248,6 +251,7 @@ const resources = {
   },
   de: {
     translation: {
+      guest: {"continue": "Als Gast fortfahren", "starting": "Gastzugang wird gestartet…", "label": "Gast", "note": "Kein Konto erforderlich. Melden Sie sich an, um Medikamente, Erinnerungen und Berichte zu speichern. Der Gastzugang umfasst bis zu 20 KI-Antworten pro Tag in Ihrem Netzwerk.", "signinToSave": "Zum Speichern anmelden", "unavailable": "Der Gastzugang ist vorübergehend nicht verfügbar. Bitte versuchen Sie es später erneut."},
       lang: { label: "Sprache" },
       header: { private: "Privat & sicher", signin: "Anmelden", myMeds: "Meine Medikamente", compare: "Medikamente vergleichen", signout: "Abmelden" },
       home: {
@@ -329,6 +333,7 @@ const resources = {
   },
   hi: {
     translation: {
+      guest: {"continue": "अतिथि के रूप में जारी रखें", "starting": "अतिथि प्रवेश शुरू हो रहा है…", "label": "अतिथि", "note": "खाते की ज़रूरत नहीं। दवाएँ, अनुस्मारक और रिपोर्ट सहेजने के लिए साइन इन करें। अतिथि प्रवेश में आपके नेटवर्क पर प्रतिदिन अधिकतम 20 AI उत्तर शामिल हैं।", "signinToSave": "सहेजने के लिए साइन इन करें", "unavailable": "अतिथि प्रवेश अभी उपलब्ध नहीं है। कृपया बाद में प्रयास करें।"},
       lang: { label: "भाषा" },
       header: { private: "निजी और सुरक्षित", signin: "साइन इन करें", myMeds: "मेरी दवाएँ", compare: "दवाओं की तुलना करें", signout: "साइन आउट" },
       home: {
@@ -410,6 +415,7 @@ const resources = {
   },
   ar: {
     translation: {
+      guest: {"continue": "المتابعة كضيف", "starting": "جارٍ بدء وصول الضيف…", "label": "ضيف", "note": "لا حاجة إلى حساب. سجّل الدخول لحفظ الأدوية والتذكيرات والتقارير. يشمل وصول الضيف حتى 20 إجابة بالذكاء الاصطناعي يومياً على شبكتك.", "signinToSave": "سجّل الدخول للحفظ", "unavailable": "وصول الضيف غير متاح مؤقتاً. يُرجى المحاولة لاحقاً."},
       lang: { label: "اللغة" },
       header: { private: "خاص وآمن", signin: "تسجيل الدخول", myMeds: "أدويتي", compare: "مقارنة الأدوية", signout: "تسجيل الخروج" },
       home: {
